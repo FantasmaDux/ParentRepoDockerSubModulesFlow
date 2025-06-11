@@ -1,0 +1,66 @@
+services:
+
+# build service 1
+  service1:
+    build: ./components/service1
+    dockerfile: Dockerfile
+  volumes:
+    - ./components/service1:/var/tempData
+  networks:
+    - network_app_service1
+    - network_multi
+  
+
+  postgreDB_service1:
+    image: postgre:8.0
+    container_name: postgreDB_service1
+    restart: unless-stopped
+  environment:
+    - PGHOST=5432
+    - PGPORT=5432
+    - PGUSER=postgres
+    - PGPASSWORD=12345
+    - PGDATABASENAME=service1_db_name
+  ports:
+    - '5432:5432'
+  volumes:
+    - ./components/service1:/postgreSQL:/data 
+  networks:
+    - network_app_service1
+
+
+# build service 2
+  service2:
+    build: ./components/service2
+    dockerfile: Dockerfile
+  volumes:
+    - ./components/service2:/var/tempData
+  networks:
+    - network_app_service2
+    - network_multi
+  
+
+  postgreDB_service1:
+    image: postgre:8.0
+    container_name: postgreDB_service2
+    restart: unless-stopped
+  environment:
+    - PGHOST=5432
+    - PGPORT=5432
+    - PGUSER=postgres
+    - PGPASSWORD=12345
+    - PGDATABASENAME=service2_db_name
+  ports:
+    - '5432:5431'
+  volumes:
+    - ./components/service2:/postgreSQL:/data 
+  networks:
+    - network_app_service2
+
+networks:
+  network_app_service1:
+    driver: brigde
+  network_app_service2: 
+    driver: brigde
+  network_multi:
+    driver: brigde
