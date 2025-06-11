@@ -14,17 +14,17 @@ services:
       - postgreDB_service1
 
   postgreDB_service1:
-    image: postgre:14-alpine
+    image: postgres:14-alpine
     container_name: postgreDB_service1
     restart: unless-stopped
     environment:
       - PGHOST=db
       - PGPORT=5432
-      - PGUSER=postgres
-      - PGPASSWORD=postgres
-      - PGDATABASE=testdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testdb
     ports:
-      - '5432:5432'
+      - '5433:5432'
     volumes:
       - ./components/service1/postgresql:/var/lib/postgresql/data
     networks:
@@ -44,15 +44,15 @@ services:
   
 
   postgreDB_service2:
-    image: postgre:14-alpine
+    image: postgres:14-alpine
     container_name: postgreDB_service2
     restart: unless-stopped
     environment:
       - PGHOST=db
       - PGPORT=5432
-      - PGUSER=postgres
-      - PGPASSWORD=postgres
-      - PGDATABASE=testdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testdb
     ports:
       - '5431:5432'
     volumes:
@@ -62,8 +62,8 @@ services:
 
 networks:
   network_app_service1:
-    driver: brigde
+    driver: bridge
   network_app_service2: 
-    driver: brigde
+    driver: bridge
   network_multi:
-    driver: brigde
+    driver: bridge
