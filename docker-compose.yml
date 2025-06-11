@@ -18,8 +18,7 @@ services:
     container_name: postgreDB_service1
     restart: unless-stopped
     environment:
-      - PGHOST=db
-      - PGPORT=5432
+      - DB_HOST=postgreDB_service1
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=testdb
@@ -48,8 +47,7 @@ services:
     container_name: postgreDB_service2
     restart: unless-stopped
     environment:
-      - PGHOST=db
-      - PGPORT=5432
+      - DB_HOST=postgreDB_service2
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=testdb
