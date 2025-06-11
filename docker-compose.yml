@@ -40,6 +40,8 @@ services:
     networks:
       - network_app_service2
       - network_multi
+    depends_on:
+      - postgreDB_service2
   
 
   postgreDB_service2:
@@ -54,7 +56,7 @@ services:
     ports:
       - '5431:5432'
     volumes:
-        - ./components/service2/postgresql:/var/lib/postgresql/data
+      - ./components/service2/postgresql:/var/lib/postgresql/data
     networks:
       - network_app_service2
 
