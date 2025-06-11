@@ -64,3 +64,68 @@ networks:
     driver: brigde
   network_multi:
     driver: brigde
+
+
+
+    version: '3.8'
+
+services:
+  service1:
+    build:
+      context: ./components/service1
+      dockerfile: Dockerfile
+    volumes:
+      - ./components/service1:/var/tempData
+    networks:
+      - network_app
+    depends_on:
+      - postgreDB_service1
+
+  postgreDB_service1:
+    image: postgres:8.0
+    container_name: postgreDB_service1
+    restart: unless-stopped
+    environment:
+      - PGHOST=localhost
+      - PGPORT=5432
+      - PGUSER=postgres
+      - PGPASSWORD=12345
+      - PGDATABASE=service1_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./components/service1/postgresql:/var/lib/postgresql/data
+    networks:
+      - network_app
+
+  service2:
+    build:
+      context: ./components/service2
+      dockerfile: Dockerfile
+    volumes:
+      - ./components/service2:/var/tempData
+    networks:
+      - network_app
+    depends_on:
+      - postgreDB_service2
+
+  postgreDB_service2:
+    image: postgres:8.0
+    container_name: postgreDB_service2
+    restart: unless-stopped
+    environment:
+      - PGHOST=localhost
+      - PGPORT=5432
+      - PGUSER=postgres
+      - PGPASSWORD=12345
+      - PGDATABASE=service2_db
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./components/service2/postgresql:/var/lib/postgresql/data
+    networks:
+      - network_app
+
+networks:
+  network_app:
+    driver: bridge
