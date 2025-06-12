@@ -1,6 +1,6 @@
 [submodule "components/service1"]
 	path = components/service1
-	url = https://github.com/FantasmaDux/service1
+	url = git@github.com:FantasmaDux/service1.git
 [submodule "components/service2"]
 	path = components/service2
-	url = https://github.com/FantasmaDux/service2
+	url = git@github.com:FantasmaDux/service2.git
