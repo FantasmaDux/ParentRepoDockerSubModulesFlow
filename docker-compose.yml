@@ -1,6 +1,6 @@
 include:
   - ./components/service1/docker-compose.yml
-  - ./components/service2/docker-compose.yml
+  # - ./components/service2/docker-compose.yml
 
 networks:
   network_multi:
